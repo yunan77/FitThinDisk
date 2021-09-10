@@ -1,5 +1,6 @@
 # FitThinDisk
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.5499851.svg)](https://doi.org/10.5281/zenodo.5499851)
+
 `FitThinDisk` is a Python program to fit the spectral line cubes with a geometrically thin disk model.   
 
 ## Download
