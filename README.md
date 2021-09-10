@@ -1,12 +1,17 @@
 # FitThinDisk
-`FitThinDisk` is a Python program to fit the spectral line cubes with a geometrically thin disk model. By giving the spectral line cubes in FITS format, it minimizes the value of &chi;<sup>2</sup> between model and data, and generate the model cube in FITS format in the directory `modelfits`. The input cubes must be three dimensional and the spectral axes should be in velocity instead of frequency.   
-
-There are seven parameters can be fit by this program. In the initial file `params.ini`, users can choose which parameters they want to fit by setting variation and can determine the bounds of the parameters.    
+`FitThinDisk` is a Python program to fit the spectral line cubes with a geometrically thin disk model.   
 
 ## Requirements
 * NumPy
 * Astropy
 * SciPy
+
+## Description
+`FitThinDisk` uses `scipy.optimize.least_squares` to minimizes the value of &chi;<sup>2</sup> between model and data by giving the spectral line cubes. Trust Region Reflective algorithm is selected to perform minimization in order to handle the fitting with bounds.
+
+The input cubes must be three dimensional in FITS format, and the spectral axes should be in velocity instead of frequency. 
+
+There are seven parameters can be fit by this program. In the initial file `params.ini`, users can choose which parameters they want to fit by setting variation and can determine the bounds of the parameters.
 
 ## Model Parameters
 ### Fixed Parameters
