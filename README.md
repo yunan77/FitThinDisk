@@ -27,7 +27,7 @@ There are seven parameters can be fit by this program. In the initial file `para
 ## Input File
 Parameters are read from an input file `params.ini`.
 
-In [free] 
+In [free], the parameters are designed by four parts, `initial/fixed value`, `variation`, `min` and `max`. 
 ```ini
 [file]
 imgpath = /home/user/
