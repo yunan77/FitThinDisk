@@ -3,6 +3,8 @@
 
 There are seven parameters can be fit by this program. In the initial file `params.ini`, users can choose which parameters they want to fit by setting variation and can determine the bounds of the parameters.    
 
+## Requirements
+
 ## Model Parameters
 ### Fixed Parameters
 * `qr`, power-law index of the rotation velocity as a function of radius, `vr0(r/r0)^qr`, r0 is an arbitrary reference radius and vr0 is the rotation velocity at the reference radius 
