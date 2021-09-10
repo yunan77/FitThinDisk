@@ -25,7 +25,7 @@ There are seven parameters can be fit by this program. In the initial file `para
 * `ro`, outer radii of the disk (arcsec)
 
 ## Input File
-```
+```ini
 [file]
 imgpath = /home/user/
 imglist = ["cube1.fits",
