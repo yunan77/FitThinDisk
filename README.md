@@ -27,7 +27,10 @@ There are seven parameters can be fit by this program. In the initial file `para
 ## Input File
 Parameters are read from an input file `params.ini`.
 
-In `[free]`, the parameters are designed by four parts, `initial/fixed value`, `variation`, `min` and `max`. 
+In `[free]`, the parameters are designed by four parts, `initial/fixed value`, `variation`, `min` and `max`.
+The variation is used to decide whether the parameter should be fit or not. For `True`, the parameter will be fit and the first value will be taken as initial guess in fitting process; for `False`, the parameter will be fixed at the first value.
+The `min` and `max` are designed as bounds of the parameter during fitting process. 
+
 ```ini
 [file]
 imgpath = /home/user/
