@@ -66,3 +66,5 @@ ro = 5.0         ,False,0,inf
 ```
 ## Usage
 `python fitdisk.py`
+
+### Output example 
