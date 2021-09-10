@@ -3,4 +3,4 @@
 
 ## Model Parameters
 * `qr`, power-law index of the rotation velocity as a function of radius, `vr(r/r0)^qr`, r0 is an arbitrary reference radius and vr is the rotation velocity at the reference radius 
-* `qd`,
+* `qd`, power-law index of the disk intensity as a function of radius, `(r/r0)^qd`
