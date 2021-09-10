@@ -3,5 +3,5 @@
 
 The thin disk model is computed by these parameters.
 ```
-q<sup>r</sup>
+`qr`
 ```
