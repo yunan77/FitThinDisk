@@ -4,6 +4,9 @@
 There are seven parameters can be fit by this program. In the initial file `params.ini`, users can choose which parameters they want to fit by setting variation and can determine the bounds of the parameters.    
 
 ## Requirements
+* NumPy
+* Astropy
+* SciPy
 
 ## Model Parameters
 ### Fixed Parameters
@@ -61,4 +64,5 @@ linewidth = 5    ,False,0,inf
 ri = 0           ,False,0,inf
 ro = 5.0         ,False,0,inf
 ```
-
+## Usage
+`python fitdisk.py`
