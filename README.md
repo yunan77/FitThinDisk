@@ -68,3 +68,14 @@ ro = 5.0         ,False,0,inf
 `python fitdisk.py`
 
 ### Output example 
+```
+Fitting success!
+[variables]
+vlsr        =  -20  +/- 0.01 (init = -15.5)  (bounds = [-30,-10])
+incl        =  50   +/- 0.01 (init = 25)     (bounds = [0,180])
+pa          =  -60  +/- 0.01 (init = -30)    (bounds = [-90,0])
+vr0sin      =  3             (fixed)
+linewidth   =  5             (fixed)
+ri          =  0             (fixed)
+ro          =  5.0           (fixed)
+```
