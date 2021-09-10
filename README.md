@@ -33,6 +33,24 @@ imglist = ["cube1.fits",
            "cube3.fits"
           ]
 [fixed]
+pixsize = 0.02
+dist = 3080.
+qr = -0.5
+qd = -1
+r0 = 0.1
+bmaj = 0.15
+bmin = 0.10
+bpa = -50
+x0 = 5.72
+y0 = -9.14
 
+[free]
+vlsr = -15.5     ,True,-30,-10
+incl = 25        ,True,0,180
+pa = -30         ,True,-90,0
+vr0sin = 3       ,False,-inf,inf
+linewidth = 5    ,False,0,inf
+ri = 0           ,False,0,inf
+ro = 5.0         ,False,0,inf
 ```
 
