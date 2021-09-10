@@ -23,3 +23,16 @@ There are seven parameters can be fit by this program. In the initial file `para
 * `vlsr`, source system velocity (km/s) 
 * `ri`, inner radii of the disk (arcsec) 
 * `ro`, outer radii of the disk (arcsec)
+
+## Input File
+```
+[file]
+imgpath = /home/user/
+imglist = ["cube1.fits",
+           "cube2.fits",
+           "cube3.fits"
+          ]
+[fixed]
+
+```
+
