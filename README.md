@@ -25,7 +25,9 @@ There are seven parameters can be fit by this program. In the initial file `para
 * `r0`, reference radius (arcsec)
 * `x0`, horizontal offset of the disk center position from the center position of the image (pix)
 * `y0`, vertical offset of the disk center position from the center position of the image (pix)
-* `pixsize`, size of a pixel in the image (arcsec)
+* `pixsize`, size of a pixel in the data cube (arcsec)
+* `samplesize`, size of a pixel in the model cube (arcsec)
+* `imgrange`, desired fitting range on the plane of the sky by pixel index (left, right, down, up)
 * `dist`, source distance (pc) 
 * `bmaj`, major axes width of the beam (arcsec)
 * `bmin`, minor axes width of the beam (arcsec)
@@ -55,14 +57,20 @@ imglist = ["cube1.fits",
            "cube2.fits",
            "cube3.fits"
           ]
+chanrange = ["0~10",
+             "5~30",
+             "12~56"
+            ]
 [fixed]
 pixsize = 0.02
-dist = 3080.
-qr = -0.5
+samplesize = 0.004
+imgrange = 870,940,855,925 
+dist = 3080. 
+qr = -0.5 
 qd = -1
-r0 = 0.1
-bmaj = 0.15
-bmin = 0.10
+r0 = 0.1 
+bmaj = 0.2
+bmin = 0.1
 bpa = -50
 x0 = 5.72
 y0 = -9.14
@@ -82,6 +90,8 @@ ro = 5.0         ,False,0,inf
 ### Output example 
 ```
 Fitting success!
+reduced chi square = 1.56
+optimized with 12564 effective pixels
 [variables]
 vlsr        =  -20  +/- 0.01 (init = -15.5)  (bounds = [-30,-10])
 incl        =  50   +/- 0.01 (init = 25)     (bounds = [0,180])
