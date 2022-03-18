@@ -13,6 +13,10 @@ from sub_package.getparams import ReadCube,Parameters
 ## read parameters in params.ini ##
 params = Parameters('params.ini')
 params.getinitial()
+xleft = int(params.fixed['imgrange'][0])
+xright = int(params.fixed['imgrange'][1])+1
+ydown = int(params.fixed['imgrange'][2])
+yup = int(params.fixed['imgrange'][3])+1
 
 ## define residual between data and model ##
 def residual(para,data,npix,nchan,velwidth,velstart,rms):
@@ -21,18 +25,21 @@ def residual(para,data,npix,nchan,velwidth,velstart,rms):
         exec(name+'='+str(para[i]),globals())
         i += 1
     for key,value in params.nofit.items():
+        if key == 'ri' or key == 'ro':
+            exec(key+'='+'False',globals())
         exec(key+'='+str(value),globals())
 
-    resid1d = np.array([])
+    resid = np.array([])
     for i in range(len(nchan)):
         imgpar = data[i],npix[i],nchan[i],velwidth[i],velstart[i]
-        intensity = thindisk(vlsr,incl,pa,vr0sin,linewidth,ri,ro,imgpar)
-        nonan = ~np.isnan(data[i])
-        residual = np.append(resid1d,((data[i][nonan]-intensity[nonan])/rms[i][nonan])) 
+        intensity = thindisk(vlsr,incl,pa,vr0,linewidth,ri,ro,imgpar)
+        resid = np.append(resid,((data[i][:,ydown:yup,xleft:xright]-intensity[:,ydown:yup,xleft:xright])/rms[i][:,ydown:yup,xleft:xright]).reshape(-1)) 
    
-    return residual
+    return resid
         
 ## read image parameters ##
+chi = []
+chf = []
 data = []
 npix = []
 nchan = []
@@ -41,9 +48,17 @@ velstart = []
 rms = []
 hd = []
 
-for i in params.imglist:
-    cube =  ReadCube(params.imgpath + i)
+for i in range(len(params.chanrange)):
+    for j in range(len(params.chanrange[i])):
+        if params.chanrange[i][j] == '~':
+            chi.append(int(params.chanrange[i][0:j]))
+            chf.append(int(params.chanrange[i][j+1:len(params.chanrange[i])+1]))
+
+totalchan = 0
+for i in range(len(params.imglist)):
+    cube =  ReadCube(params.imgpath + params.imglist[i])
     cube.calrms()
+    cube.select_chans(first=chi[i],last=chf[i])
     data.append(cube.data)
     npix.append(cube.npix)
     nchan.append(cube.nchan)
@@ -51,9 +66,10 @@ for i in params.imglist:
     velstart.append(cube.velstart)
     rms.append(cube.rms)
     hd.append(cube.hd)
+    totalchan += cube.nchan
 
 ## find minimun of residual ##
-res = least_squares(residual, params.para0, method='trf',bounds=(params.lowbound,params.upbound),args=(data,npix,nchan,velwidth,velstart,rms))
+res = least_squares(residual, params.para0, method='trf',diff_step=1e-5,args=(data,npix,nchan,velwidth,velstart,rms))
 
 ## compute uncertainty for fit parameters ##
 U, s, Vh = linalg.svd(res.jac, full_matrices=False)
@@ -63,7 +79,8 @@ cov = (Vh[w].T/s[w]**2) @ Vh[w]  # robust covariance matrix
 s_sq = np.sum(res.fun**2)/(res.fun.size - res.x.size)
 cov *= s_sq
 nbeam = params.fixed['bmaj']*params.fixed['bmin']/params.fixed['pixsize']**2
-chi2 = stats.chi2.ppf(0.683,params.df)
+effpix = (xright-xleft)*(yup-ydown)*totalchan/nbeam
+chi2 = stats.chi2.ppf(0.683,params.df+1)
 perr = np.sqrt(np.diag(cov))*np.sqrt(nbeam)*np.sqrt(chi2)
 
 ## print fitting result ##
@@ -71,6 +88,8 @@ out = []
 add = out.append
 if res.success is True:
     add('Fitting success!')
+    add(f'reduced chi square = {s_sq}')
+    add(f'optimized with {effpix} effective pixels')
     add('[Variables]')
     for i in range(params.df):
         init = '(init = {})'.format(params.para0[i])
@@ -90,7 +109,7 @@ for name in params.fitname:
 
 for i in range(len(params.imglist)):
     imgpar = data[i],npix[i],nchan[i],velwidth[i],velstart[i]
-    inten = thindisk(vlsr,incl,pa,vr0sin,linewidth,ri,ro,imgpar)
+    inten = thindisk(vlsr,incl,pa,vr0,linewidth,ri,ro,imgpar)
     model = fits.PrimaryHDU(inten)
     hdmodel = model.header
     hdmodel["CTYPE1"] = hd[i]["CTYPE1"]
