@@ -35,7 +35,7 @@ There are seven parameters can be fit by this program. In the initial file `para
 ### Free Parameters
 * `incl`, inclination angel of the disk (deg)(0 for face-on, 90 for edge-on) 
 * `pa`, position angel of the major axes of the disk (deg) 
-* `vr0sin`, roataion velocity at the reference radius projected onto the line of sight (km/s) 
+* `vr0`, roataion velocity at the reference radius projected onto the line of sight (km/s) 
 * `linewidth`, FWHM of Gaussian line profile (km/s)
 * `vlsr`, source system velocity (km/s) 
 * `ri`, inner radii of the disk (arcsec) 
@@ -96,7 +96,7 @@ optimized with 12564 effective pixels
 vlsr        =  -20  +/- 0.01 (init = -15.5)  (bounds = [-30,-10])
 incl        =  50   +/- 0.01 (init = 25)     (bounds = [0,180])
 pa          =  -60  +/- 0.01 (init = -30)    (bounds = [-90,0])
-vr0sin      =  3             (fixed)
+vr0         =  3             (fixed)
 linewidth   =  5             (fixed)
 ri          =  0             (fixed)
 ro          =  5.0           (fixed)
